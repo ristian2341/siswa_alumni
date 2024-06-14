@@ -11,34 +11,25 @@ $this->title = 'Login';
 // $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<section class="card col-sm-6" style="background-color: #9A616D;">
-    <div class="container py-6 h-100">
-        <?php $form = ActiveForm::begin([
-            'id' => 'login-form'
-        ]); ?>
+<div class="container-fluid">
+    <?php $form = ActiveForm::begin([
+        'id' => 'login-form'
+    ]); ?>
+    
+        <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+        <?= $form->field($model, 'password')->textInput(); ?>
 
-            <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
-            <?= $form->field($model, 'password', [
-                    'template' => '{input}
-                        <a class="plain-text" href="javascript:void(0)" data-button="plain_text">
-                            <span class="glyphicon glyphicon-eye-open"></span>
-                        </a>
-                        {error}{hint}
-                        <span class="focus-input" data-placeholder="Password"></span>'
-                ])->passwordInput(['tabindex' => '2', 'not-uppercase' => true, 'class' => 'smooth-field']); ?>
+        <!-- <?//= $form->field($model, 'rememberMe')->checkbox(['template' => "<div class=\"offset-lg-1 col-lg-3 custom-control custom-checkbox\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",]) ?> -->
 
-            <!-- <?//= $form->field($model, 'rememberMe')->checkbox(['template' => "<div class=\"offset-lg-1 col-lg-3 custom-control custom-checkbox\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",]) ?> -->
-
-            <div class="form-group">
-                <div class="offset-lg-1 col-lg-11">
-                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-                </div>
+        <div class="form-group">
+            <div class="offset-lg-1 col-lg-11">
+                <?= Html::submitButton('Login&nbsp;<i class="glyphicon glyphicon-search"></i>', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
             </div>
+        </div>
 
-        <?php ActiveForm::end(); ?>
-        
-    </div>
-</section>
+    <?php ActiveForm::end(); ?>
+    
+</div>
 
 <script>
 $(document).ready(function(){
