@@ -8,42 +8,50 @@ use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Html;
 
 $this->title = 'Login';
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to login:</p>
+<section class="card col-sm-6" style="background-color: #9A616D;">
+    <div class="container py-6 h-100">
+        <?php $form = ActiveForm::begin([
+            'id' => 'login-form'
+        ]); ?>
 
-    <?php $form = ActiveForm::begin([
-        'id' => 'login-form',
-        'layout' => 'horizontal',
-        'fieldConfig' => [
-            'template' => "{label}\n{input}\n{error}",
-            'labelOptions' => ['class' => 'col-lg-1 col-form-label mr-lg-3'],
-            'inputOptions' => ['class' => 'col-lg-3 form-control'],
-            'errorOptions' => ['class' => 'col-lg-7 invalid-feedback'],
-        ],
-    ]); ?>
+            <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+            <?= $form->field($model, 'password', [
+                    'template' => '{input}
+                        <a class="plain-text" href="javascript:void(0)" data-button="plain_text">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </a>
+                        {error}{hint}
+                        <span class="focus-input" data-placeholder="Password"></span>'
+                ])->passwordInput(['tabindex' => '2', 'not-uppercase' => true, 'class' => 'smooth-field']); ?>
 
-        <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+            <!-- <?//= $form->field($model, 'rememberMe')->checkbox(['template' => "<div class=\"offset-lg-1 col-lg-3 custom-control custom-checkbox\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",]) ?> -->
 
-        <?= $form->field($model, 'password')->passwordInput() ?>
-
-        <?= $form->field($model, 'rememberMe')->checkbox([
-            'template' => "<div class=\"offset-lg-1 col-lg-3 custom-control custom-checkbox\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
-        ]) ?>
-
-        <div class="form-group">
-            <div class="offset-lg-1 col-lg-11">
-                <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+            <div class="form-group">
+                <div class="offset-lg-1 col-lg-11">
+                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                </div>
             </div>
-        </div>
 
-    <?php ActiveForm::end(); ?>
-
-    <div class="offset-lg-1" style="color:#999;">
-        You may login with <strong>admin/admin</strong> or <strong>demo/demo</strong>.<br>
-        To modify the username/password, please check out the code <code>app\models\User::$users</code>.
+        <?php ActiveForm::end(); ?>
+        
     </div>
-</div>
+</section>
+
+<script>
+$(document).ready(function(){
+	$("body").off("click","[data-button=\"plain_text\"]").on("click","[data-button=\"plain_text\"]", function(e){
+		e.preventDefault();
+		$("#loginform-password").toggleClass("open-text");
+		if($("#loginform-password").hasClass("open-text")){
+			$("#loginform-password").attr("type", "text");
+			$(".glyphicon-eye-open").removeClass("glyphicon-eye-open").addClass("glyphicon-eye-close");
+		} else{
+			$("#loginform-password").attr("type", "password");
+			$(".glyphicon-eye-close").removeClass("glyphicon-eye-close").addClass("glyphicon-eye-open");
+		}
+	});
+});
+</script>
