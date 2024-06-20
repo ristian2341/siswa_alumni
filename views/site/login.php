@@ -8,41 +8,49 @@ use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Html;
 
 $this->title = 'Login';
-// $this->params['breadcrumbs'][] = $this->title;
 ?>
+<style>
+    .gradient-custom {
+        /* fallback for old browsers */
+        background: #6a11cb;
 
-<div class="container-fluid">
-    <?php $form = ActiveForm::begin([
-        'id' => 'login-form'
-    ]); ?>
-    
-        <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
-        <?= $form->field($model, 'password')->textInput(); ?>
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
 
-        <!-- <?//= $form->field($model, 'rememberMe')->checkbox(['template' => "<div class=\"offset-lg-1 col-lg-3 custom-control custom-checkbox\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",]) ?> -->
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
+    }
+   
+</style>
+<section class="vh-100" style="background-color: #424242;">
+    <div class="container py-6 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card shadow-2-strong" style="border-radius: 1rem;">
+            <div class="card-body p-6 mx-md-4">
+                <div class="text-center">
+                    <img src="<?= (!empty($setting->logo) ? $setting->logo : '') ?>" style="width: 185px;" alt="logo">
+                    <h4 class="mt-1 mb-5 pb-1"><?= (!empty($setting->instansi) ? $setting->instansi : '') ?></h4>
+                </div>
+                <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+                    <p>Please login to your account</p>
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <?= $form->field($model, 'username')->textInput(['autofocus' => true,'autocomplete' => 'off']) ?>
+                    </div>
 
-        <div class="form-group">
-            <div class="offset-lg-1 col-lg-11">
-                <?= Html::submitButton('Login&nbsp;<i class="glyphicon glyphicon-search"></i>', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <?= $form->field($model, 'password')->passwordInput(['autocomplete' => 'off']); ?>
+                    </div>
+                    <!-- Checkbox -->
+                    <!-- <div class="form-check d-flex justify-content-start mb-4"> -->
+                    <!-- <input class="form-check-input" type="checkbox" value="" id="form1Example3" /> -->
+                    <!-- <label class="form-check-label" for="form1Example3"> Remember password </label> -->
+                    <!-- </div> -->
+                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary btn-block fa-lg gradient-custom-2 mb-3', 'name' => 'login-button']) ?>
+                    <?php ActiveForm::end(); ?>
+                </div>
             </div>
         </div>
-
-    <?php ActiveForm::end(); ?>
-    
-</div>
-
-<script>
-$(document).ready(function(){
-	$("body").off("click","[data-button=\"plain_text\"]").on("click","[data-button=\"plain_text\"]", function(e){
-		e.preventDefault();
-		$("#loginform-password").toggleClass("open-text");
-		if($("#loginform-password").hasClass("open-text")){
-			$("#loginform-password").attr("type", "text");
-			$(".glyphicon-eye-open").removeClass("glyphicon-eye-open").addClass("glyphicon-eye-close");
-		} else{
-			$("#loginform-password").attr("type", "password");
-			$(".glyphicon-eye-close").removeClass("glyphicon-eye-close").addClass("glyphicon-eye-open");
-		}
-	});
-});
-</script>
+        </div>
+    </div>
+</section>

@@ -5,10 +5,12 @@
 
 use app\assets\AppAsset;
 use app\widgets\Alert;
-use yii\bootstrap4\Breadcrumbs;
-use yii\bootstrap4\Html;
-use yii\bootstrap4\Nav;
-use yii\bootstrap4\NavBar;
+use yii\helpers\Html;
+use yii\helpers\Url;
+
+// modal setting //
+use app\models\Setting;
+$setting = Setting::find()->where(['id_setting' => 1])->one();
 
 AppAsset::register($this);
 ?>
@@ -16,24 +18,33 @@ AppAsset::register($this);
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>" class="h-100">
 <head>
-    <meta charset="<?= Yii::$app->charset ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <?php $this->registerCsrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
-    <?php $this->head() ?>
+<meta charset="<?= Yii::$app->charset ?>">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<?= Html::csrfMetaTags() ?>
+		<title>Login Form [<?= $setting->instansi ?>]</title>
+        <link rel="shortcut icon" href="<?php echo Yii::$app->request->baseUrl."/". $setting->icon; ?>" type="image/x-icon" />
+		<?php $this->head() ?>
 </head>
-<body class="d-flex flex-column">
+<body >
+    
     <?php $this->beginBody() ?>
-
-        <main role="main" class="flex-shrink-0">
+	<div class="login-wrapper">		
+        <div class="login-container">
+			<div class="login-logoimg"></div>
+			<?= Alert::widget() ?>
+			<?= $content ?>
+		</div>
+	</div>
+        <!-- <main role="main" class="flex-shrink-0">
             <div class="container">
-                <?= Breadcrumbs::widget([
-                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                ]) ?>
-                <?= Alert::widget() ?>
-                <?= $content ?>
+                <?//= Breadcrumbs::widget([
+                    //'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                //]) ?>
+                <?//= Alert::widget() ?>
+                <?//= $content ?>
             </div>
-        </main>
+        </main> -->
 
         <!-- <footer class="footer mt-auto py-3 text-muted">
             <div class="container">
@@ -46,3 +57,10 @@ AppAsset::register($this);
 </body>
 </html>
 <?php $this->endPage() ?>
+
+<script>
+    $(document).ready(function(){
+        
+    });
+</script>
+

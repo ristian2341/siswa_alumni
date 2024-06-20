@@ -14,9 +14,17 @@ $config = [
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'enableCookieValidation' => false,
-            'enableCsrfValidation' => false,
+            'enableCookieValidation' => true,
+            'enableCsrfValidation' => true,
+            'cookieValidationKey' => '3GQztWgpBokTpC_pWgemcSuMOsSzByaS',
         ],
+        'assetManager' => [
+			'bundles' => [
+				'yii\bootstrap4\BootstrapPluginAsset' => [
+					'js'=>[]
+				],
+			],
+		],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
@@ -54,6 +62,7 @@ $config = [
         */
     ],
     'params' => $params,
+    'timeZone' => 'Asia/Bangkok',
 ];
 
 if (YII_ENV_DEV) {

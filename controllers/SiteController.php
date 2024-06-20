@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Setting;
 
 class SiteController extends Controller
 {
@@ -76,15 +77,21 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-
+        
+        $setting = Setting::find()->where(['id_setting' => 1])->one();
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+        if($model->load(Yii::$app->request->post())){
+            if($model->login()){
+                return $this->goBack();
+            }else{
+                return $this->goHome();
+            }
         }
 
         $model->password = '';
         return $this->render('login', [
             'model' => $model,
+            'setting' => $setting,
         ]);
     }
 
